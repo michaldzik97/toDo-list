@@ -12,6 +12,7 @@ $due_date = NULL;
 $completed_date = NULL;
 $priority_def = '5';
 
+//Use to change submit form to edit
 $edit = false;
 
 if(!isset($_GET['order']))
@@ -23,6 +24,7 @@ else
   $order = $_GET['order'];
 }
 
+//No longer shows except source-code
 if(isset($_POST['submit']))
 {
   if (empty($_POST['task']))
@@ -44,7 +46,8 @@ if(isset($_POST['submit']))
   else
   {
       sendTask($conn, $_POST['task'], $_POST['description'], $_POST["due_date"], $_POST["priority"], $_POST["completed_date"]);
-      header("Location: todo-list.php"); // redirect to the base page to clear the form data
+      // redirect to the base page to clear the form data
+      header("Location: todo-list.php"); 
       $conn = NULL;
       exit;
   }
@@ -56,7 +59,7 @@ if (isset($_POST['edit']))
   //To hold currently edited task (wanted to use id but database refused to cooperate)
   $old_task = $task_array[0]['title'];
   $task = $old_task;
-  // editTask($conn, $old_task,  $_POST['task'], $_POST['description'], $_POST["due_date"], $_POST["priority"], $_POST["completed_date"]);
+ 
 }
 
 if(isset($_GET['del_task']) )
@@ -67,6 +70,7 @@ if(isset($_GET['del_task']) )
   exit;
 }
 
+//Only came this far with edit option
 if(isset($_GET['edit_task']))
 {
   $edit = true;
